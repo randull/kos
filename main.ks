@@ -70,22 +70,6 @@ until runmode = 0 {
 	  return shipengines[0]:isp * g * ln(ship:mass / drymass).
 	}
 
-//	function gearutil {
-//    if alt:radar < 100 {
-//      if belowalt = false {
-//        set belowalt to true.
-//        set gear to true.
-//        set legs to true.
-//      }
-//  } else {
-//      if belowalt = true {
-//        set belowalt to false.
-//        set gear to false.
-//        set legs to false.
-//      }
-//    }
-//	}
-
 	print "Gear:    " + gear at (1,24).
 
 	print "Max Decel:    " + round(maxdecel) at (1,26).
