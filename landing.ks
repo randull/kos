@@ -1,5 +1,4 @@
 when trueradar < stopdist then {
-	//gear on.
 	lock steering to srfretrograde.
 	lock throttle to idealthrottle.
 }

@@ -17,14 +17,14 @@ until runmode = 0 {
 		}
 	} else if runmode = 3 {
 			run ascent.ks.
-			when apoapsis > 75000 then {
+			when apoapsis > 50000 then {
 				clearscreen.
 				set runmode to 4.
 				print "[              Maneuver Mode               ]".
 		}
 	} else if runmode = 4 {
 			run maneuver.ks.
-			when altitude < 20000 then {
+			when ship:periapsis > ship:apoapsis then {
 				clearscreen.
 				set runmode to 5.
 				print "[               Descent Mode               ]".
@@ -70,12 +70,22 @@ until runmode = 0 {
 	  return shipengines[0]:isp * g * ln(ship:mass / drymass).
 	}
 
-	print "Gear:    " + gear at (1,24).
 
-	print "Max Decel:    " + round(maxdecel) at (1,26).
-	print "stopdist:     " + round(stopdist) at (1,27).
-	print "|  Ideal Throt:  " + round(idealthrottle) at (25,26).
-	print "|  Impact Time:  " + round(impacttime) at (25,27).
+
+	list engines in myVariable.
+	for eng in myVariable {
+	    print eng at (1,10).
+	}
+
+	print "Brakes:      " + brakes at (1,15).
+	print "Gear:        " + gear at (1,16).
+	print "Intakes:     " + intakes at (1,17).
+	print "Ladders:     " + ladders at (1,18).
+	print "Legs:        " + legs at (1,19).
+	print "Lights:      " + lights at (1,20).
+	print "Panels:      " + panels at (1,21).
+	print "RCS:         " + rcs at (1,22).
+	print "SAS:         " + sas at (1,23).
 
 	print "RunMode:      " + round(runmode) at (1,29).
 	print "Gravity:      " + round(g,4) at (1,30).
@@ -86,7 +96,7 @@ until runmode = 0 {
 	print "Oxidizer:     " + round(ship:oxidizer) at (1,35).
 	print "|  DeltaV:       " + round(deltav) at (25,30).
 	print "|  TWR:          " + round(twr,2) at (25,31).
-	print "|  Impact Time:  " + round(impacttime,2) at (25,32).
+	print "|  Impact Time:  " + round(impacttime) at (25,32).
 	print "|  ETA To Apo:   " + round(eta:apoapsis) at (25,33).
 	print "|  Vertspeed:    " + round(verticalspeed) at (25,34).
 	print "|  Groundspeed:  " + round(groundspeed) at (25,35).
