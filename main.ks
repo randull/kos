@@ -1,5 +1,6 @@
 clearscreen.
 set runmode to 1.
+stage.
 
 until runmode = 0 {
 	if runmode = 1 {
@@ -10,21 +11,21 @@ until runmode = 0 {
 			print "[                Takeoff Mode                ]".
 	} else if runmode = 2 {
 			run takeoff.ks.
-			when altitude > 1200 then {
+			when altitude > 500 then {
 				clearscreen.
 				set runmode to 3.
 				print "[               Ascent Mode                ]".
 		}
 	} else if runmode = 3 {
 			run ascent.ks.
-			when apoapsis > 50000 then {
+			when apoapsis > 150000 then {
 				clearscreen.
 				set runmode to 4.
 				print "[              Maneuver Mode               ]".
 		}
 	} else if runmode = 4 {
 			run maneuver.ks.
-			when ship:periapsis > ship:apoapsis then {
+			when ship:periapsis > adj_apoapsis then {
 				clearscreen.
 				set runmode to 5.
 				print "[               Descent Mode               ]".
@@ -51,7 +52,7 @@ until runmode = 0 {
 		}
 	}
 
-	set brakes to ship:airspeed < 5.
+	set brakes to ship:airspeed < 1.
 	set gear to alt:radar < 100.
 	set panels to alt:radar > 50000.
 	set radarOffset to 9.184.	 																// The value of alt:radar when landed (on gear)
@@ -63,29 +64,13 @@ until runmode = 0 {
 	lock impacttime to trueradar / abs(ship:verticalspeed).		// Time until impact, used for landing gear
 	lock twr to ship:availablethrust / (g * ship:mass).				// Current Thrust to Weight Ratio
 
+  lock adj_apoapsis to ship:apoapsis-10000.
 
 	function deltav {
 	  list engines in shipengines.
 	  set drymass to ship:mass - ((ship:liquidfuel + ship:oxidizer) * 0.005).
 	  return shipengines[0]:isp * g * ln(ship:mass / drymass).
 	}
-
-
-
-	list engines in myVariable.
-	for eng in myVariable {
-	    print eng at (1,10).
-	}
-
-	print "Brakes:      " + brakes at (1,15).
-	print "Gear:        " + gear at (1,16).
-	print "Intakes:     " + intakes at (1,17).
-	print "Ladders:     " + ladders at (1,18).
-	print "Legs:        " + legs at (1,19).
-	print "Lights:      " + lights at (1,20).
-	print "Panels:      " + panels at (1,21).
-	print "RCS:         " + rcs at (1,22).
-	print "SAS:         " + sas at (1,23).
 
 	print "RunMode:      " + round(runmode) at (1,29).
 	print "Gravity:      " + round(g,4) at (1,30).
