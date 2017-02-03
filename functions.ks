@@ -9,25 +9,26 @@ set rapier_engines to list().
 set sealevel_engines to list().
 set vacuum_engines to list().
 
-for each_engine in engine_list {
-	if each_engine:multimode = true {
-		if each_engine:autoswitch = false {
-			afterburner_engines:add(each_engine).
-		} else {
-			rapier_engines:add(each_engine).
-		}
+for each_engine in all_engines {
+	if each_engine:name = "turboJet" {
+		afterburner_engines:add(each_engine).		
+	} else if each_engine:name = "RAPIER" {
+		rapier_engines:add(each_engine).		
+	} else if each_engine:name = "liquidEngine3" {
+		sealevel_engines:add(each_engine).		
 	} else {
-		if each_engine:sealevelisp > each_engine:vacuumisp {
-			sealevel_engines:add(each_engine).
-		} else {
-			vacuum_engines:add(each_engine).		
-		}
+		vacuum_engines:add(each_engine).		
 	}
 }
 
-when ship:dynamicpressure < 1 then {
+when ship:altitude > 30000 then {
 	for each_afterburner_engine in afterburner_engines {
-		each_afterburner_engine:activate.
+		each_afterburner_engine:shutdown.
+	}
+}
+for each_sealevel_engine in sealevel_engines {
+	when ship:altitude > 150 then {
+		each_sealevel_engine:shutdown.
 	}
 }
 when ship:altitude < 150000 then {
@@ -36,24 +37,18 @@ when ship:altitude < 150000 then {
 	}
 }
 for each_afterburner_engine in afterburner_engines {
-	if ship:altitude < 15000 {
+	if ship:altitude < 150 {
 		set each_afterburner_engine:primarymode to false.
 	} else {
 		set each_afterburner_engine:primarymode to true.
 	}
 }
-for each_rapier_engine in rapier_engines {
-	if ship:altitude > 20000 {
-		set each_rapier_engine:primarymode to false.
-	} else if ship:altitude < 500 {
-		set each_rapier_engine:primarymode to false.
-	} else {
-		set each_rapier_engine:primarymode to true.
-	}
-}
-//for each_sealevel_engine in sealevel_engines {
-//	each_sealevel_engine:activate.
-//}
-//for each_vacuum_engine in vacuum_engines {
-//	each_vacuum_engine:activate.
+//for each_rapier_engine in rapier_engines {
+//	if ship:altitude > 20000 {
+//		set each_rapier_engine:primarymode to false.
+//	} else if ship:altitude < 500 {
+//		set each_rapier_engine:primarymode to false.
+//	} else {
+//		set each_rapier_engine:primarymode to true.
+//	}
 //}

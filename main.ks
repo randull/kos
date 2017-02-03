@@ -52,14 +52,14 @@ until runmode = 0 {
 
 	run functions.ks.
 	
-	lock clearance to altitude - ship:geoposition:terrainheight.	// The value of alt:radar when landed (on gear)
-	lock trueradar to alt:radar - clearance.											// Offset radar to get distance from gear to ground
-	lock g to constant:g * body:mass / body:radius^2.							// Gravity (m/s^2)
-	lock maxdecel to (ship:availablethrust / ship:mass) - g.			// Maximum deceleration possible (m/s^2)
-	lock stopdist to ship:verticalspeed^2 / (2 * maxdecel).				// The distance the burn will require
-	lock idealthrottle to stopdist / trueradar.										// Throttle required for perfect hoverslam
-	lock impacttime to trueradar / abs(ship:verticalspeed).				// Time until impact, used for landing gear
-	lock twr to ship:availablethrust / (g * ship:mass).						// Current Thrust to Weight Ratio
+	lock clearance to altitude - ship:geoposition:terrainheight.
+	lock trueradar to alt:radar - clearance.
+	lock g to constant:g * body:mass / body:radius^2.
+	lock maxdecel to (ship:availablethrust / ship:mass) - g.
+	lock stopdist to ship:verticalspeed^2 / (2 * maxdecel).
+	lock idealthrottle to stopdist / trueradar.
+	lock impacttime to trueradar / abs(ship:verticalspeed).
+	lock twr to ship:availablethrust / (g * ship:mass).
 
   lock adj_apoapsis to ship:apoapsis-10000.
 
@@ -68,6 +68,23 @@ until runmode = 0 {
 	  set drymass to ship:mass - ((ship:liquidfuel + ship:oxidizer) * 0.005).
 	  return shipengines[0]:isp * g * ln(ship:mass / drymass).
 	}
+
+	for each_engine in engine_list {
+		print "full: " + each_engine at (1,21).
+	}
+	for each_afterburner_engine in afterburner_engines {
+		print "aftb: " + each_afterburner_engines at (1,22).
+	}
+	for each_engine in engine_list {
+		print "rpir: " + each_engine at (1,23).
+	}
+	for each_engine in engine_list {
+		print "slvl: " + each_engine at (1,24).
+	}
+	for each_engine in engine_list {
+		print "vcum: " + each_engine at (1,25).
+	}
+
 
 	print "RunMode:      " + round(runmode) at (1,29).
 	print "Gravity:      " + round(g,4) at (1,30).
@@ -78,7 +95,7 @@ until runmode = 0 {
 	print "Oxidizer:     " + round(ship:oxidizer) at (1,35).
 	print "|  DeltaV:       " + round(deltav) at (25,30).
 	print "|  TWR:          " + round(twr,2) at (25,31).
-	print "|  Impact Time:  " + round(impacttime) at (25,32).
+	print "|  True Radar:   " + round(trueradar) at (25,32).
 	print "|  ETA To Apo:   " + round(eta:apoapsis) at (25,33).
 	print "|  Vertspeed:    " + round(verticalspeed) at (25,34).
 	print "|  Groundspeed:  " + round(groundspeed) at (25,35).
