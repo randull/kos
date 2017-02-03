@@ -46,23 +46,20 @@ until runmode = 0 {
 		}
 	} else if runmode = 7 {
 			run postflight.ks.
-			when ship:status = "Landed" then {
-				clearscreen.
-				set runmode to 0.
-		}
+			clearscreen.
+			set runmode to 0.
 	}
 
-	set brakes to ship:airspeed < 1.
-	set gear to alt:radar < 100.
-	set panels to alt:radar > 50000.
-	set radarOffset to 9.184.	 																// The value of alt:radar when landed (on gear)
-	lock trueradar to alt:radar - radaroffset.								// Offset radar to get distance from gear to ground
-	lock g to constant:g * body:mass / body:radius^2.					// Gravity (m/s^2)
-	lock maxdecel to (ship:availablethrust / ship:mass) - g.	// Maximum deceleration possible (m/s^2)
-	lock stopdist to ship:verticalspeed^2 / (2 * maxdecel).		// The distance the burn will require
-	lock idealthrottle to stopdist / trueradar.								// Throttle required for perfect hoverslam
-	lock impacttime to trueradar / abs(ship:verticalspeed).		// Time until impact, used for landing gear
-	lock twr to ship:availablethrust / (g * ship:mass).				// Current Thrust to Weight Ratio
+	run functions.ks.
+	
+	lock clearance to altitude - ship:geoposition:terrainheight.	// The value of alt:radar when landed (on gear)
+	lock trueradar to alt:radar - clearance.											// Offset radar to get distance from gear to ground
+	lock g to constant:g * body:mass / body:radius^2.							// Gravity (m/s^2)
+	lock maxdecel to (ship:availablethrust / ship:mass) - g.			// Maximum deceleration possible (m/s^2)
+	lock stopdist to ship:verticalspeed^2 / (2 * maxdecel).				// The distance the burn will require
+	lock idealthrottle to stopdist / trueradar.										// Throttle required for perfect hoverslam
+	lock impacttime to trueradar / abs(ship:verticalspeed).				// Time until impact, used for landing gear
+	lock twr to ship:availablethrust / (g * ship:mass).						// Current Thrust to Weight Ratio
 
   lock adj_apoapsis to ship:apoapsis-10000.
 
