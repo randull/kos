@@ -69,23 +69,6 @@ until runmode = 0 {
 	  return shipengines[0]:isp * g * ln(ship:mass / drymass).
 	}
 
-	for each_engine in engine_list {
-		print "full: " + each_engine at (1,21).
-	}
-	for each_afterburner_engine in afterburner_engines {
-		print "aftb: " + each_afterburner_engines at (1,22).
-	}
-	for each_engine in engine_list {
-		print "rpir: " + each_engine at (1,23).
-	}
-	for each_engine in engine_list {
-		print "slvl: " + each_engine at (1,24).
-	}
-	for each_engine in engine_list {
-		print "vcum: " + each_engine at (1,25).
-	}
-
-
 	print "RunMode:      " + round(runmode) at (1,29).
 	print "Gravity:      " + round(g,4) at (1,30).
 	print "Altitude:     " + round(ship:altitude) at (1,31).

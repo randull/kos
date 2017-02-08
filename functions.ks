@@ -3,7 +3,7 @@ set panels to alt:radar > 50000.
 set fuelcells to ship:electriccharge < 100.
 set intakes to ship:dynamicpressure < 1.
 
-list engines in engine_list.
+list engines in all_engines.
 set afterburner_engines to list().
 set rapier_engines to list().
 set sealevel_engines to list().
