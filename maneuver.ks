@@ -1,21 +1,24 @@
-if ship:altitude < 50000 {
-	lock steering to heading(90,45).
-} else {
-	when apoapsis > 205000 then {
-		set warp to 2.
-		lock throttle to 0.
-		lock steering to ship:srfprograde.
-	}
-	when eta:apoapsis < 60 then {
-		sas off.
-		lock steering to heading(90,-10).
-		lock throttle to 0.75.
-		wait 5.
-	}
-	when periapsis > 199500 then {
-		set warp to 0.
-		rcs on.
-		sas on.
-		lock throttle to 0.
-	}
+until ship:periapsis > 200000
+{
+    set etaFraction to ( ship:periapsis - initialPeriapsis)/( ship:apoapsis - initialPeriapsis).
+    set desiredETA to etaFraction*(finalETA - initialETA) + initialETA.
+    set desiredETA to max ( finalETA, min ( initialETA, desiredETA)).
+
+
+
+    set err to ETA:apoapsis - desiredETA.
+    set dT to missiontime - pT.
+    set pT to missiontime .
+    set dErr to (err-pErr)/dT.
+    set errInt to errInt + err*dT.
+
+    set th to P*err + I*errInt + D*dErr + 0.5. // plus 0.5 to give it pos and neg at beginning.
+
+    if eta:apoapsis > 10* initialETA // something has gone wrong and we passed apoapsis
+    {
+        break .
+    }
+
+    lock throttle to th.
+    wait 0.01.
 }

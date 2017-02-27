@@ -6,17 +6,40 @@ list engines in all_engines.
 set afterburner_engines to list().
 set rapier_engines to list().
 set sealevel_engines to list().
+set rocket_engines to list().
 set vacuum_engines to list().
 
 for each_engine in all_engines {
 	if each_engine:name = "turboJet" {
 		afterburner_engines:add(each_engine).		
-	} else if each_engine:name = "RAPIER" {
-		rapier_engines:add(each_engine).		
-	} else if each_engine:name = "liquidEngine3" {
+	}
+}
+for each_engine in all_engines {
+	if each_engine:name = "liquidEngine3" {
+		sealevel_engines:add(each_engine).				
+	} else if each_engine:name = "turboFanEngine" {
+		sealevel_engines:add(each_engine).						
+	} else if each_engine:name = "miniJetEngine" {
 		sealevel_engines:add(each_engine).		
-	} else {
-		vacuum_engines:add(each_engine).		
+	}
+}
+for each_engine in all_engines {
+	if each_engine:name = "RAPIER" {
+		rapier_engines:add(each_engine).		
+	}
+}
+for each_engine in all_engines {
+	if each_engine:name = "toroidalAerospike" {
+		rocket_engines:add(each_engine).				
+	} else if each_engine:name = "liquidEngine" {
+		rocket_engines:add(each_engine).		
+	} else if each_engine:name = "SSME" {
+		rocket_engines:add(each_engine).		
+	}
+}
+for each_engine in all_engines {
+	if each_engine:name = "nuclearEngine" {
+		afterburner_engines:add(each_engine).		
 	}
 }
 
@@ -31,6 +54,10 @@ print rapier_engines.
 print "------------------------------".
 print "Sealevel Engines:".
 print sealevel_engines.
+
+print "------------------------------".
+print "Rocket Engines:".
+print rocket_engines.
 
 print "------------------------------".
 print "Vacuum Engines:".
