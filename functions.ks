@@ -9,6 +9,7 @@ set afterburner_engines to list().
 set sealevel_engines to list().
 set rocket_engines to list().
 set vacuum_engines to list().
+set other_engines to list().
 
 set all_rapier_engines to list(
 	"RAPIER"
@@ -17,7 +18,7 @@ set all_afterburner_engines to list(
 	"turboJet"
 ).
 set all_sealevel_engines to list(
-	"liquidEngine3",
+	"JetEngine",
 	"miniJetEngine",
 	"turboFanEngine"
 ).
@@ -47,6 +48,8 @@ for each_engine in all_engines {
 		rocket_engines:add(each_engine).		
 	} else if all_vacuum_engines:contains(each_engine:name) { 
 		vacuum_engines:add(each_engine).		
+	} else {
+		other_engines:add(each_engine).
 	}
 }.
 
