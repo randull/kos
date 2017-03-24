@@ -4,47 +4,51 @@ set fuelcells to ship:electriccharge < 100.
 set intakes to ship:dynamicpressure < 1.
 
 list engines in all_engines.
-set afterburner_engines to list().
 set rapier_engines to list().
+set afterburner_engines to list().
 set sealevel_engines to list().
 set rocket_engines to list().
 set vacuum_engines to list().
 
+set all_rapier_engines to list(
+	"RAPIER"
+).
+set all_afterburner_engines to list(
+	"turboJet"
+).
+set all_sealevel_engines to list(
+	"liquidEngine3",
+	"miniJetEngine",
+	"turboFanEngine"
+).
+set all_rocket_engines to list(
+	"engineLargeSkipper",
+	"liquidEngine",
+	"liquidEngine2",
+	"liquidEngine2-2",
+	"liquidEngine3",
+	"liquidEngineMini",
+	"SSME",
+	"toroidalAerospike"
+).
+set all_vacuum_engines to list(
+	"ionEngine",
+	"nuclearEngine"
+).
+
 for each_engine in all_engines {
-	if each_engine:name = "turboJet" {
-		afterburner_engines:add(each_engine).		
-	}
-}
-for each_engine in all_engines {
-	if each_engine:name = "liquidEngine3" {
-		sealevel_engines:add(each_engine).				
-	} else if each_engine:name = "turboFanEngine" {
-		sealevel_engines:add(each_engine).						
-	} else if each_engine:name = "miniJetEngine" {
-		sealevel_engines:add(each_engine).		
-	}
-}
-for each_engine in all_engines {
-	if each_engine:name = "RAPIER" {
+	if all_rapier_engines:contains(each_engine:name) { 
 		rapier_engines:add(each_engine).		
-	}
-}
-for each_engine in all_engines {
-	if each_engine:name = "toroidalAerospike" {
-		rocket_engines:add(each_engine).				
-	} else if each_engine:name = "liquidEngine" {
+	} else if all_afterburner_engines:contains(each_engine:name) { 
+		afterburner_engines:add(each_engine).		
+	} else if all_sealevel_engines:contains(each_engine:name) { 
+		sealevel_engines:add(each_engine).		
+	} else if all_rocket_engines:contains(each_engine:name) { 
 		rocket_engines:add(each_engine).		
-	} else if each_engine:name = "liquidEngine2" {
-		rocket_engines:add(each_engine).		
-	} else if each_engine:name = "SSME" {
-		rocket_engines:add(each_engine).		
-	}
-}
-for each_engine in all_engines {
-	if each_engine:name = "nuclearEngine" {
+	} else if all_vacuum_engines:contains(each_engine:name) { 
 		vacuum_engines:add(each_engine).		
 	}
-}
+}.
 
 for each_afterburner_engine in afterburner_engines {
 	if ship:altitude < 20000 {

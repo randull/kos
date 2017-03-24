@@ -1,20 +1,18 @@
 set profile to LIST(
-  LIST(-9999, 5), // -9999 ensures alt > first item in list.
-  LIST(100, 10),
-  LIST(5000, 15),
-  LIST(10000, 10),
-  LIST(12000, 5),
-  LIST(15000, 10),
-  LIST(25000, 15),
-  LIST(35000, 20),
-  LIST(45000, 15),
+  LIST(-9999, 85), // -9999 ensures alt > first item in list.
+  LIST(3000, 70),
+  LIST(7000, 65),
+  LIST(10000, 45),
+  LIST(13000, 35),
+  LIST(15000, 30),
+  LIST(25000, 20),
+  LIST(35000, 15),
   LIST(50000, 10),
-  LIST(65000, 5),
   LIST(72000, 0)
 ).
 
 lock throttle to 1.
-set mysteer to heading(90,0).
+set mysteer to heading(90,90).
 lock steering to mysteer.
 stage.
 
@@ -35,4 +33,20 @@ until profIndex = profile:length {
       print "Waiting until alt > " + nextAlt.
     }
   }
+  if should_stage() {
+    stage.
+  }
+  wait 0.
+}
+
+print "PROFILE LIST COMPLETE".
+
+function should_stage {
+   if maxthrust = 0
+     return true.
+   list engines in my_engines.
+   for eng in my_engines 
+     if eng:flameout 
+       return true.
+   return false.
 }
