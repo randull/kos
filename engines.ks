@@ -1,5 +1,3 @@
-clearscreen.
-
 list engines in all_engines.
 set solid_engines to list().
 set rapier_engines to list().
@@ -68,32 +66,3 @@ for each_engine in all_engines {
 		other_engines:add(each_engine).
 	}
 }.
-
-print "------------------------------".
-print "Solid Engines:".
-print solid_engines.
-
-print "------------------------------".
-print "Rapier Afterburner Engines:".
-print rapier_engines.
-
-print "------------------------------".
-print "Afterburner Engines:".
-print afterburner_engines.
-
-print "------------------------------".
-print "Sealevel Engines:".
-print sealevel_engines.
-
-print "------------------------------".
-print "Rocket Engines:".
-print rocket_engines.
-
-print "------------------------------".
-print "Vacuum Engines:".
-print vacuum_engines.
-
-print "------------------------------".
-print "Other Engines:".
-print other_engines.
-print "------------------------------".

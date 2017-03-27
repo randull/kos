@@ -50,6 +50,7 @@ until runmode = 0 {
 			set runmode to 0.
 	}
 
+	run engines.ks.
 	run functions.ks.
 	
 	lock clearance to altitude - ship:geoposition:terrainheight.
