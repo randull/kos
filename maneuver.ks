@@ -1,24 +1,10 @@
-until ship:periapsis > 200000
-{
-    set etaFraction to ( ship:periapsis - initialPeriapsis)/( ship:apoapsis - initialPeriapsis).
-    set desiredETA to etaFraction*(finalETA - initialETA) + initialETA.
-    set desiredETA to max ( finalETA, min ( initialETA, desiredETA)).
-
-
-
-    set err to ETA:apoapsis - desiredETA.
-    set dT to missiontime - pT.
-    set pT to missiontime .
-    set dErr to (err-pErr)/dT.
-    set errInt to errInt + err*dT.
-
-    set th to P*err + I*errInt + D*dErr + 0.5. // plus 0.5 to give it pos and neg at beginning.
-
-    if eta:apoapsis > 10* initialETA // something has gone wrong and we passed apoapsis
-    {
-        break .
-    }
-
-    lock throttle to th.
-    wait 0.01.
-}
+LOCK THROTTLE TO 0.
+WAIT 1.
+LOCK Vb TO SQRT(BODY:MU/(BODY:RADIUS+ALTITUDE))
+  *VXCL(UP:VECTOR,VELOCITY:ORBIT):DIRECTION:VECTOR
+  -VELOCITY:ORBIT.
+LOCK STEERING TO Vb.
+WAIT UNTIL VANG(FACING:VECTOR,Vb) < 10.
+LOCK THROTTLE TO 0.5*Vb:MAG*MASS/MAXTHRUST.
+WAIT UNTIL APOAPSIS-PERIAPSIS < 200.
+LOCK THROTTLE TO 0.

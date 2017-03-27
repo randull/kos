@@ -1,6 +1,7 @@
 clearscreen.
 
 list engines in all_engines.
+set solid_engines to list().
 set rapier_engines to list().
 set afterburner_engines to list().
 set sealevel_engines to list().
@@ -8,6 +9,12 @@ set rocket_engines to list().
 set vacuum_engines to list().
 set other_engines to list().
 
+set all_solid_engines to list(
+	"MassiveBooster",
+	"solidBooster",
+	"solidBooster.sm",
+	"solidBooster1-1"
+).
 set all_rapier_engines to list(
 	"RAPIER"
 ).
@@ -17,25 +24,37 @@ set all_afterburner_engines to list(
 set all_sealevel_engines to list(
 	"JetEngine",
 	"miniJetEngine",
-	"turboFanEngine"
+	"turboFanEngine",
+	"turboFanSize2"
 ).
 set all_rocket_engines to list(
 	"engineLargeSkipper",
 	"liquidEngine",
+	"liquidEngine1-2",
 	"liquidEngine2",
 	"liquidEngine2-2",
-	"liquidEngine3",
 	"liquidEngineMini",
+	"radialEngineMini",
+	"radialLiquidEngine1-2",
+	"Size2LFB",
+	"Size3AdvancedEngine",
+	"Size3EngineCluster",
+	"smallRadialEngine",
 	"SSME",
 	"toroidalAerospike"
 ).
 set all_vacuum_engines to list(
 	"ionEngine",
-	"nuclearEngine"
+	"liquidEngine3",
+	"microEngine",
+	"nuclearEngine",
+	"omsEngine"
 ).
 
 for each_engine in all_engines {
-	if all_rapier_engines:contains(each_engine:name) { 
+	if all_solid_engines:contains(each_engine:name) { 
+		solid_engines:add(each_engine).		
+	} else if all_rapier_engines:contains(each_engine:name) { 
 		rapier_engines:add(each_engine).		
 	} else if all_afterburner_engines:contains(each_engine:name) { 
 		afterburner_engines:add(each_engine).		
@@ -51,12 +70,16 @@ for each_engine in all_engines {
 }.
 
 print "------------------------------".
-print "Afterburner Engines:".
-print afterburner_engines.
+print "Solid Engines:".
+print solid_engines.
 
 print "------------------------------".
 print "Rapier Afterburner Engines:".
 print rapier_engines.
+
+print "------------------------------".
+print "Afterburner Engines:".
+print afterburner_engines.
 
 print "------------------------------".
 print "Sealevel Engines:".
@@ -73,6 +96,7 @@ print vacuum_engines.
 print "------------------------------".
 print "Other Engines:".
 print other_engines.
+print "------------------------------".
 
 //when ship:altitude > 30000 then {
 //	for each_afterburner_engine in afterburner_engines {

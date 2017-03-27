@@ -4,6 +4,7 @@ set fuelcells to ship:electriccharge < 100.
 set intakes to ship:dynamicpressure < 1.
 
 list engines in all_engines.
+set solid_engines to list().
 set rapier_engines to list().
 set afterburner_engines to list().
 set sealevel_engines to list().
@@ -11,6 +12,12 @@ set rocket_engines to list().
 set vacuum_engines to list().
 set other_engines to list().
 
+set all_solid_engines to list(
+	"MassiveBooster",
+	"solidBooster",
+	"solidBooster.sm",
+	"solidBooster1-1"
+).
 set all_rapier_engines to list(
 	"RAPIER"
 ).
@@ -20,25 +27,37 @@ set all_afterburner_engines to list(
 set all_sealevel_engines to list(
 	"JetEngine",
 	"miniJetEngine",
-	"turboFanEngine"
+	"turboFanEngine",
+	"turboFanSize2"
 ).
 set all_rocket_engines to list(
 	"engineLargeSkipper",
 	"liquidEngine",
+	"liquidEngine1-2",
 	"liquidEngine2",
 	"liquidEngine2-2",
-	"liquidEngine3",
 	"liquidEngineMini",
+	"radialEngineMini",
+	"radialLiquidEngine1-2",
+	"Size2LFB",
+	"Size3AdvancedEngine",
+	"Size3EngineCluster",
+	"smallRadialEngine",
 	"SSME",
 	"toroidalAerospike"
 ).
 set all_vacuum_engines to list(
 	"ionEngine",
-	"nuclearEngine"
+	"liquidEngine3",
+	"microEngine",
+	"nuclearEngine",
+	"omsEngine"
 ).
 
 for each_engine in all_engines {
-	if all_rapier_engines:contains(each_engine:name) { 
+	if all_solid_engines:contains(each_engine:name) { 
+		solid_engines:add(each_engine).		
+	} else if all_rapier_engines:contains(each_engine:name) { 
 		rapier_engines:add(each_engine).		
 	} else if all_afterburner_engines:contains(each_engine:name) { 
 		afterburner_engines:add(each_engine).		
@@ -60,16 +79,16 @@ for each_afterburner_engine in afterburner_engines {
 		set each_afterburner_engine:primarymode to true.
 	}
 }
-for each_rocket_engine in rocket_engines {
-	if ship:altitude < 22500 {
-		each_rocket_engine:shutdown.
-	} else {
-		each_rocket_engine:activate.
-	}
-}
 when ship:altitude > 25000 then {
 	for each_afterburner_engine in afterburner_engines {
 		each_afterburner_engine:shutdown.
+	}
+}
+for each_rocket_engine in rocket_engines {
+	if ship:altitude < 27500 {
+		each_rocket_engine:shutdown.
+	} else {
+		each_rocket_engine:activate.
 	}
 }
 for each_sealevel_engine in sealevel_engines {
