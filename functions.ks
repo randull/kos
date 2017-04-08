@@ -30,7 +30,7 @@ for each_sealevel_engine in sealevel_engines {
 	}
 }
 for each_vacuum_engine in vacuum_engines {
-	if ship:altitude < 30000 {
+	if ship:altitude < 10000 {
 		each_vacuum_engine:shutdown.
 	} else {
 		each_vacuum_engine:activate.

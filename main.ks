@@ -25,7 +25,7 @@ until runmode = 0 {
 		}
 	} else if runmode = 4 {
 			run maneuver.ks.
-			when ship:periapsis > adj_apoapsis then {
+			when altitude < 50000 then {
 				clearscreen.
 				set runmode to 5.
 				print "[               Descent Mode               ]".
