@@ -4,6 +4,7 @@ set rapier_engines to list().
 set afterburner_engines to list().
 set sealevel_engines to list().
 set rocket_engines to list().
+set nuclear_engines to list().
 set vacuum_engines to list().
 set other_engines to list().
 
@@ -41,11 +42,13 @@ set all_rocket_engines to list(
 	"SSME",
 	"toroidalAerospike"
 ).
+set all_nuclear_engines to list(
+	"nuclearEngine"
+).
 set all_vacuum_engines to list(
 	"ionEngine",
 	"liquidEngine3",
 	"microEngine",
-	"nuclearEngine",
 	"omsEngine"
 ).
 
@@ -58,6 +61,8 @@ for each_engine in all_engines {
 		afterburner_engines:add(each_engine).		
 	} else if all_sealevel_engines:contains(each_engine:name) { 
 		sealevel_engines:add(each_engine).		
+	} else if all_nuclear_engines:contains(each_engine:name) { 
+		nuclear_engines:add(each_engine).		
 	} else if all_rocket_engines:contains(each_engine:name) { 
 		rocket_engines:add(each_engine).		
 	} else if all_vacuum_engines:contains(each_engine:name) { 

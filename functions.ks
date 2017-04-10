@@ -3,6 +3,14 @@ set panels to alt:radar > 50000.
 set fuelcells to ship:electriccharge < 100.
 set intakes to ship:dynamicpressure < 1.
 
+
+for each_nuclear_engine in nuclear_engines {
+	if ship:altitude < 18000 {
+		each_nuclear_engine:shutdown.
+	} else {
+		each_nuclear_engine:activate.
+	}
+}
 for each_afterburner_engine in afterburner_engines {
 	if ship:altitude < 20000 {
 		set each_afterburner_engine:primarymode to false.
@@ -30,17 +38,16 @@ for each_sealevel_engine in sealevel_engines {
 	}
 }
 for each_vacuum_engine in vacuum_engines {
-	if ship:altitude < 10000 {
+	if ship:altitude < 40000 {
 		each_vacuum_engine:shutdown.
 	} else {
 		each_vacuum_engine:activate.
 	}
 }
 for each_rapier_engine in rapier_engines {
-	if ship:apoapsis < 210000 {
-		each_rapier_engine:activate.
-	} else {
+	if ship:oxidizer < 500 {
 		each_rapier_engine:shutdown.
+	} else {
+		each_rapier_engine:activate.
 	}
 }
-

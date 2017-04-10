@@ -18,21 +18,21 @@ until runmode = 0 {
 		}
 	} else if runmode = 3 {
 			run ascent.ks.
-			when apoapsis > 150000 then {
+			when ship:apoapsis > 150000 then {
 				clearscreen.
 				set runmode to 4.
 				print "[              Maneuver Mode               ]".
 		}
 	} else if runmode = 4 {
 			run maneuver.ks.
-			when altitude < 50000 then {
+			when ship:periapsis > adj_apoapsis then {
 				clearscreen.
 				set runmode to 5.
 				print "[               Descent Mode               ]".
 		}
 	} else if runmode = 5 {
 			run descent.ks.
-			when altitude < 2500 then {
+			when ship:altitude < 2500 then {
 				clearscreen.
 				set runmode to 6.
 				print "[               Landing Mode               ]".
@@ -62,7 +62,7 @@ until runmode = 0 {
 	lock impacttime to trueradar / abs(ship:verticalspeed).
 	lock twr to ship:availablethrust / (g * ship:mass).
 
-  lock adj_apoapsis to ship:apoapsis-10000.
+  lock adj_apoapsis to ship:apoapsis-50.
 
 	function deltav {
 	  list engines in shipengines.

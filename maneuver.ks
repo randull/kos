@@ -1,11 +1,11 @@
-LOCK THROTTLE TO 0.
-WAIT 1.
-LOCK Vb TO SQRT(BODY:MU/(BODY:RADIUS+ALTITUDE))
-  *VXCL(UP:VECTOR,VELOCITY:ORBIT):DIRECTION:VECTOR
-  -VELOCITY:ORBIT.
-LOCK STEERING TO Vb.
-WAIT UNTIL VANG(FACING:VECTOR,Vb) < 10.
-LOCK THROTTLE TO 0.5*Vb:MAG*MASS/MAXTHRUST.
-WAIT UNTIL APOAPSIS-PERIAPSIS < 50.
-LOCK THROTTLE TO 0.
+lock throttle to 0.
+wait 1.
+lock vb to sqrt(body:mu/(body:radius+altitude))
+  *vxcl(up:vector,velocity:orbit):direction:vector
+  -velocity:orbit.
+lock steering to vb.
+wait until vang(facing:vector,vb) < 10.
+lock throttle to 0.5*vb:mag*mass/maxthrust.
+wait until ship:apoapsis-ship:periapsis < 50.
+lock throttle to 0.
 set warp to 0.
