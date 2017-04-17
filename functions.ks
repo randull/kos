@@ -45,9 +45,9 @@ for each_vacuum_engine in vacuum_engines {
 	}
 }
 for each_rapier_engine in rapier_engines {
-	if ship:oxidizer < 500 {
-		each_rapier_engine:shutdown.
-	} else {
+	if ship:oxidizer > 200 {
 		each_rapier_engine:activate.
+	} else {
+		each_rapier_engine:shutdown.
 	}
 }
