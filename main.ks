@@ -18,7 +18,7 @@ until runmode = 0 {
 		}
 	} else if runmode = 3 {
 			run ascent.ks.
-			when ship:apoapsis > 150000 then {
+			when ship:apoapsis > 125000 then {
 				clearscreen.
 				set runmode to 4.
 				print "[              Maneuver Mode               ]".
