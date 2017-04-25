@@ -1,4 +1,5 @@
 clearscreen.
+brakes on.
 
 list engines in all_engines.
 set vtol_engines to list().
@@ -79,16 +80,35 @@ for each_engine in all_engines {
 	}
 }.
 
-set vtol_bays to ship:partsdubbed("VTOL Bay").  // Add VTOL Bays to list
-print vtol_bays.  // Prints bays with "VTOL Bay" nametag
+//set vtol_bays to ship:partstagged("VTOL Bay").  // Add VTOL Bays to list
+//for vtol_bays in ship:partsdubbed("VTOL Bay") { vtol_bays:getmodule("ModuleAnimateGeneric"):getfield("status"). }
+//print vtol_bays.  // Prints bays with "VTOL Bay" nametag
+//print "------------------------------".
+//print "------------------------------".
 
+set vtol_bays to ship:partsdubbed("VTOL Bay").
 for each_vtol_bay in vtol_bays {
-	if ship:altitude < 2500 {
-		each_vtol_bay:bays on.  // Open VTOL Bays
+	set vtol_bay_module to each_vtol_bay:getmodule("ModuleAnimateGeneric").
+	if ship:altitude < 2000 {
+		if vtol_bay_module:hasevent("open") = true {
+	  	vtol_bay_module:doevent("open").
+	  }
 	} else {
-		each_vtol_bay:bays off.  // Close VTOL Bays
+		if vtol_bay_module:hasevent("close") = true {
+	  	vtol_bay_module:doevent("close").
+	  }
 	}
-}
+}.
+print vtol_bay_module:getfield("status").
+print vtol_bay_module:hasevent("close").
+print vtol_bay_module:hasevent("close").
+//for each_vtol_bay in vtol_bays {
+//	if ship:altitude < 2500 {
+//		each_vtol_bay:bays on.  // Open VTOL Bays
+//	} else {
+//		each_vtol_bay:bays off.  // Close VTOL Bays
+//	}
+//}
 
 //print "------------------------------".
 //print "VTOL Engines:".

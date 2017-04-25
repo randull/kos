@@ -2,19 +2,23 @@ set gear to alt:radar < 120.
 set panels to alt:radar > 50000.
 set fuelcells to ship:electriccharge < 100.
 set intakes to ship:dynamicpressure < 1.
+
+
 set vtol_bays to ship:partsdubbed("VTOL Bay").
-set bays to alt:radar < 1000.
-
-
-//for each_vtol_bay in vtol_bays {
-//	if ship:altitude < 2500 {
-//		each_vtol_bay:bay on.
-//	} else {
-//		each_vtol_bay:bay off.
-//	}
-//}
+for each_vtol_bay in vtol_bays {
+	set vtol_bay_module to each_vtol_bay:getmodule("ModuleAnimateGeneric").
+	if ship:altitude < 2000 {
+		if vtol_bay_module:hasevent("open") = true {
+	  	vtol_bay_module:doevent("open").
+	  }
+	} else {
+		if vtol_bay_module:hasevent("close") = true {
+	  	vtol_bay_module:doevent("close").
+	  }
+	}
+}.
 for each_vtol_engine in vtol_engines {
-	if ship:altitude < 1000 {
+	if ship:altitude < 2000 {
 		each_vtol_engine:activate.
 	} else {
 		each_vtol_engine:shutdown.
