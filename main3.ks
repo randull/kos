@@ -1,6 +1,7 @@
 clearscreen.
 
 list engines in all_engines.
+set vtol_engines to list().
 set solid_engines to list().
 set rapier_engines to list().
 set afterburner_engines to list().
@@ -10,6 +11,9 @@ set nuclear_engines to list().
 set vacuum_engines to list().
 set other_engines to list().
 
+set all_vtol_engines to list(
+	"smallRadialEngine"
+).
 set all_solid_engines to list(
 	"MassiveBooster",
 	"solidBooster",
@@ -40,7 +44,6 @@ set all_rocket_engines to list(
 	"Size2LFB",
 	"Size3AdvancedEngine",
 	"Size3EngineCluster",
-	"smallRadialEngine",
 	"SSME",
 	"toroidalAerospike"
 ).
@@ -55,7 +58,9 @@ set all_vacuum_engines to list(
 ).
 
 for each_engine in all_engines {
-	if all_solid_engines:contains(each_engine:name) { 
+	if all_vtol_engines:contains(each_engine:name) { 
+		vtol_engines:add(each_engine).		
+	} else if all_solid_engines:contains(each_engine:name) { 
 		solid_engines:add(each_engine).		
 	} else if all_rapier_engines:contains(each_engine:name) { 
 		rapier_engines:add(each_engine).		
@@ -74,68 +79,51 @@ for each_engine in all_engines {
 	}
 }.
 
+set vtol_bays to ship:partsdubbed("VTOL Bay").  // Add VTOL Bays to list
+print vtol_bays.  // Prints bays with "VTOL Bay" nametag
 
-print "------------------------------".
-print "Solid Engines:".
-print solid_engines.
+for each_vtol_bay in vtol_bays {
+	if ship:altitude < 2500 {
+		each_vtol_bay:bays on.  // Open VTOL Bays
+	} else {
+		each_vtol_bay:bays off.  // Close VTOL Bays
+	}
+}
 
-print "------------------------------".
-print "Rapier Afterburner Engines:".
-print rapier_engines.
+//print "------------------------------".
+//print "VTOL Engines:".
+//print vtol_engines.
+//
+//print "------------------------------".
+//print "Solid Engines:".
+//print solid_engines.
+//
+//print "------------------------------".
+//print "Rapier Afterburner Engines:".
+//print rapier_engines.
+//
+//print "------------------------------".
+//print "Afterburner Engines:".
+//print afterburner_engines.
+//
+//print "------------------------------".
+//print "Sealevel Engines:".
+//print sealevel_engines.
+//
+//print "------------------------------".
+//print "Rocket Engines:".
+//print rocket_engines.
+//
+//print "------------------------------".
+//print "Nuclear Engines:".
+//print nuclear_engines.
+//
+//print "------------------------------".
+//print "Vacuum Engines:".
+//print vacuum_engines.
+//
+//print "------------------------------".
+//print "Other Engines:".
+//print other_engines.
+//print "------------------------------".
 
-print "------------------------------".
-print "Afterburner Engines:".
-print afterburner_engines.
-
-print "------------------------------".
-print "Sealevel Engines:".
-print sealevel_engines.
-
-print "------------------------------".
-print "Rocket Engines:".
-print rocket_engines.
-
-print "------------------------------".
-print "Nuclear Engines:".
-print nuclear_engines.
-
-print "------------------------------".
-print "Vacuum Engines:".
-print vacuum_engines.
-
-print "------------------------------".
-print "Other Engines:".
-print other_engines.
-print "------------------------------".
-
-//when ship:altitude > 30000 then {
-//	for each_afterburner_engine in afterburner_engines {
-//		each_afterburner_engine:activate.
-//	}
-//}
-//when ship:altitude < 17500 then {
-//	for each_vacuum_engine in vacuum_engines {
-//		each_vacuum_engine:activate.
-//	}
-//}
-//when ship:altitude < 150000 then {
-//	for each_rapier_engine in rapier_engines {
-//		each_rapier_engine:activate.
-//	}
-//}
-//for each_afterburner_engine in afterburner_engines {
-//	if ship:altitude < 15000 {
-//		set each_afterburner_engine:primarymode to false.
-//	} else {
-//		set each_afterburner_engine:primarymode to true.
-//	}
-//}
-//for each_rapier_engine in rapier_engines {
-//	if ship:altitude > 20000 {
-//		set each_rapier_engine:primarymode to false.
-//	} else if ship:altitude < 500 {
-//		set each_rapier_engine:primarymode to false.
-//	} else {
-//		set each_rapier_engine:primarymode to true.
-//	}
-//}

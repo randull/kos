@@ -11,7 +11,7 @@ until runmode = 0 {
 			print "[                Takeoff Mode                ]".
 	} else if runmode = 2 {
 			run takeoff.ks.
-			when altitude > 100 then {
+			when altitude > 2500 then {
 				clearscreen.
 				set runmode to 3.
 				print "[               Ascent Mode                ]".
