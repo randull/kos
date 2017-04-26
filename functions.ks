@@ -4,10 +4,10 @@ set fuelcells to ship:electriccharge < 100.
 set intakes to ship:dynamicpressure < 1.
 
 
-set vtol_bays to ship:partsdubbed("VTOL Bay").
-for each_vtol_bay in vtol_bays {
-	set vtol_bay_module to each_vtol_bay:getmodule("ModuleAnimateGeneric").
-	if ship:altitude < 2000 {
+
+for vtol_bays in ship:partsdubbed("VTOL Bay") {	
+	set vtol_bay_module to vtol_bays:getmodule("ModuleAnimateGeneric").
+	if ship:altitude < 7500 {
 		if vtol_bay_module:hasevent("open") = true {
 	  	vtol_bay_module:doevent("open").
 	  }
@@ -18,7 +18,7 @@ for each_vtol_bay in vtol_bays {
 	}
 }.
 for each_vtol_engine in vtol_engines {
-	if ship:altitude < 2000 {
+	if ship:altitude < 7500 {
 		each_vtol_engine:activate.
 	} else {
 		each_vtol_engine:shutdown.
