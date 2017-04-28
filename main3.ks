@@ -80,16 +80,9 @@ for each_engine in all_engines {
 	}
 }.
 
-//set vtol_bays to ship:partstagged("VTOL Bay").  // Add VTOL Bays to list
-//for vtol_bays in ship:partsdubbed("VTOL Bay") { vtol_bays:getmodule("ModuleAnimateGeneric"):getfield("status"). }
-//print vtol_bays.  // Prints bays with "VTOL Bay" nametag
-//print "------------------------------".
-//print "------------------------------".
-
-set vtol_bays to ship:partsdubbed("VTOL Bay").
-for each_vtol_bay in vtol_bays {
-	set vtol_bay_module to each_vtol_bay:getmodule("ModuleAnimateGeneric").
-	if ship:altitude < 2000 {
+for vtol_bays in ship:partsdubbed("VTOL Bay") {	
+	set vtol_bay_module to vtol_bays:getmodule("ModuleAnimateGeneric").
+	if ship:altitude < 7500 {
 		if vtol_bay_module:hasevent("open") = true {
 	  	vtol_bay_module:doevent("open").
 	  }
@@ -99,51 +92,45 @@ for each_vtol_bay in vtol_bays {
 	  }
 	}
 }.
-print vtol_bay_module:getfield("status").
-print vtol_bay_module:hasevent("close").
-print vtol_bay_module:hasevent("close").
-//for each_vtol_bay in vtol_bays {
-//	if ship:altitude < 2500 {
-//		each_vtol_bay:bays on.  // Open VTOL Bays
-//	} else {
-//		each_vtol_bay:bays off.  // Close VTOL Bays
-//	}
-//}
 
-//print "------------------------------".
-//print "VTOL Engines:".
-//print vtol_engines.
-//
-//print "------------------------------".
-//print "Solid Engines:".
-//print solid_engines.
-//
-//print "------------------------------".
-//print "Rapier Afterburner Engines:".
-//print rapier_engines.
-//
-//print "------------------------------".
-//print "Afterburner Engines:".
-//print afterburner_engines.
-//
-//print "------------------------------".
-//print "Sealevel Engines:".
-//print sealevel_engines.
-//
-//print "------------------------------".
-//print "Rocket Engines:".
-//print rocket_engines.
-//
-//print "------------------------------".
-//print "Nuclear Engines:".
-//print nuclear_engines.
-//
-//print "------------------------------".
-//print "Vacuum Engines:".
-//print vacuum_engines.
-//
-//print "------------------------------".
-//print "Other Engines:".
-//print other_engines.
-//print "------------------------------".
+print "------------------------------".
+print "VTOL Bays:".
+print vtol_bays.
+
+print "------------------------------".
+print "VTOL Engines:".
+print vtol_engines.
+
+print "------------------------------".
+print "Solid Engines:".
+print solid_engines.
+
+print "------------------------------".
+print "Rapier Afterburner Engines:".
+print rapier_engines.
+
+print "------------------------------".
+print "Afterburner Engines:".
+print afterburner_engines.
+
+print "------------------------------".
+print "Sealevel Engines:".
+print sealevel_engines.
+
+print "------------------------------".
+print "Rocket Engines:".
+print rocket_engines.
+
+print "------------------------------".
+print "Nuclear Engines:".
+print nuclear_engines.
+
+print "------------------------------".
+print "Vacuum Engines:".
+print vacuum_engines.
+
+print "------------------------------".
+print "Other Engines:".
+print other_engines.
+print "------------------------------".
 
